@@ -1,6 +1,6 @@
 [project]
 name = "datasaudi-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server for Saudi economic & social statistics (GASTAT / DataSaudi) — query GDP, inflation, trade, population in plain English or Arabic from Claude, Cursor, and other AI clients. Keyless, no database."
 readme = "README.md"
 license = { text = "MIT" }

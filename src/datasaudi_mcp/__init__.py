@@ -3,4 +3,4 @@
 No database, no ingestion: tools call the live API and return tidy rows.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
