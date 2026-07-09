@@ -15,16 +15,10 @@ No API key. No database.**
 It connects your AI client to **277 official Saudi statistical datasets** — the same headline
 indicators GASTAT and the Ministry of Economy & Planning publish — and lets you just *ask*.
 
-### ▶ [Watch the 60‑second demo](https://github.com/mohsinmshabbir/datasaudi-mcp/raw/main/docs/demo.mp4)
-
 A real question in Claude Desktop — the model finds the right dataset, pulls Riyadh's
-real‑estate price index and the national trend, and charts them.
+real‑estate price index and the national trend, and charts them:
 
-<!-- To get an INLINE autoplaying player (better than this link): open a new GitHub Issue on
-this repo, drag docs/demo.mp4 into the comment box, copy the generated
-https://github.com/user-attachments/assets/... URL, and paste it on its own line here in
-place of the heading above. GitHub only auto-embeds video from that upload URL, not from a
-raw/ repo path. -->
+https://github.com/user-attachments/assets/99c0433c-91fb-4815-94a5-349c589ad4ec
 
 > **Note:** the PyPI package is being published — until it lands, install from source (see
 > [Contributing](#contributing)). The `uvx` command below works once it's on PyPI.
