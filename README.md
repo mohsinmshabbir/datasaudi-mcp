@@ -30,10 +30,6 @@ pulls Riyadh's real‑estate price index against the national trend, and charts 
 
 https://github.com/user-attachments/assets/99c0433c-91fb-4815-94a5-349c589ad4ec
 
-> [!NOTE]
-> The PyPI package is publishing now. Until it lands, install from source (see
-> [Contributing](#contributing)). The `uvx` command below works the moment it's live.
-
 ---
 
 ## Ask it anything

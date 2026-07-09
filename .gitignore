@@ -22,7 +22,10 @@ venv/
 # The committed fixture under tests/fixtures/ is the exception (tracked deliberately).
 data/*.json
 
-# PRIVATE — internal process docs & scratch. Never publish (see PUBLICATION.md).
-docs/superpowers/
+# Local-only working files (not part of the published project)
+*.local.md
+.local/
 .superpowers/
+docs/superpowers/
+docs/FURTHER_READING.md
 PUBLICATION.md

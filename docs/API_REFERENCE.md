@@ -131,7 +131,7 @@ Saudi, Riyad Bank, + international (OECD, UNCTAD, KNOMAD, UNOCHA).
   base-year 100), not per-deal SAR values. Per-deal prices are on MoJ's live Srem dashboard only.
 - **Harmonization is per-cube, not corpus-wide.** 9 distinct geography-dimension names and 11 time-
   dimension names exist across cubes; cross-cube joins still need reconciliation. Only 108/277 cubes
-  carry any geography. (This is why the fused-Commons sibling project has value this one can't match.)
+  carry any geography.
 
 ## Gotchas for the developer
 

@@ -42,8 +42,7 @@ plausible-but-wrong answer is worse than an error. Concretely, that means:
 
 If you're extending a tool, keep results comfortably under the client's result-size limit and
 preserve the completeness/paging signals. See [`docs/API_REFERENCE.md`](docs/API_REFERENCE.md)
-for the verified DataSaudi API grammar and its gotchas, and
-[`docs/FURTHER_READING.md`](docs/FURTHER_READING.md) for the design sources.
+for the verified DataSaudi API grammar and its gotchas.
 
 ## Pull requests
 

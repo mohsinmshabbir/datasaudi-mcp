@@ -1,8 +1,8 @@
 """FastMCP server exposing DataSaudi cubes as three workhorse tools.
 
-Guided discovery (spec Section 2): list_cubes (search 277-cube catalog) ->
+Guided discovery: list_cubes (search 277-cube catalog) ->
 describe_cube (one cube's levels + measures) -> query_cube (validated query).
-All hardening (R1-R20) lives below this thin orchestration layer.
+All hardening lives below this thin orchestration layer.
 
 Transport: stdio (the default). STDOUT is the JSON-RPC channel; all logging
 goes to STDERR (R18)."""
