@@ -53,14 +53,26 @@ def build_result(cube, drilldowns, measures, cut, rows, more, offset=0, clamped=
     server ceiling (R22). R22 also caps the payload by BYTES so it never exceeds the
     client's ~1MB result wall regardless of cube width or locale (Arabic is multi-byte)."""
     resolved = {"cube": cube, "drilldowns": drilldowns, "measures": measures, "cut": cut}
+    had_rows = bool(rows)
     rows, trimmed = _fit_to_byte_budget(rows)
     if trimmed:
         more = True   # we dropped rows for size -> there is definitely more
         clamped = True
     n = len(rows)
+    # A single row can exceed the whole byte budget, so trimming drops EVERYTHING.
+    # That is not "no data" and it is not pageable (the same fat row would return):
+    # tell the model the truth - the row was too large - and steer to narrowing.
+    oversized_wipeout = trimmed and n == 0 and had_rows
     complete = not more
     nxt = offset + n
-    if not rows:
+    if oversized_wipeout:
+        more = False          # paging won't help; do not claim a next page exists
+        complete = False      # but the caller did NOT get the data either
+        note = ("A single row exceeded the result size budget, so no rows could be "
+                "returned. This is NOT 'no data' - the slice HAS data, it's just too "
+                "large for one result. Narrow it: request fewer measures, drop a "
+                "drilldown, or add a cut (e.g. one year / one province).")
+    elif not rows:
         note = "0 rows - query valid, no matching data (this series may not cover that slice)."
     elif more and clamped:
         # R22: the caller asked for more than the hard row ceiling. Lead with the cap fact.

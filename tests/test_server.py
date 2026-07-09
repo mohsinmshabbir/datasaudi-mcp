@@ -87,6 +87,43 @@ async def test_list_cubes_offset_pages_through():
     assert page2["returned"] > 0
 
 
+@pytest.mark.asyncio
+async def test_list_cubes_bad_scope_fails_loud_not_silent_empty():
+    # R13: a typo'd scope must NOT silently fall through to zero matches and report
+    # 'complete'. It must fail loud, naming the valid scopes so the model self-corrects.
+    with pytest.raises(DataSaudiError) as exc:
+        await server.list_cubes("gdp", scope="topic")  # not a real scope
+    msg = str(exc.value).lower()
+    assert "scope" in msg
+    for valid in ("catalog", "measures", "levels"):
+        assert valid in msg
+
+
+@pytest.mark.asyncio
+async def test_list_cubes_members_alias_scope_still_valid():
+    # 'members' is the documented backward-compat alias for 'levels' - must NOT raise.
+    out = await server.list_cubes("province", scope="members")
+    assert "total_matches" in out  # got a real envelope, no error
+
+
+@pytest.mark.asyncio
+async def test_list_cubes_bad_locale_fails_loud():
+    # R13: an unknown locale silently behaved as English. Fail loud instead.
+    with pytest.raises(DataSaudiError) as exc:
+        await server.list_cubes("gdp", locale="fr")
+    msg = str(exc.value).lower()
+    assert "locale" in msg
+    assert "ar" in msg and "en" in msg
+
+
+def test_query_cube_docstring_states_the_real_cap():
+    # The docstring is the ONLY surface the model reads. It must quote the ACTUAL
+    # ceiling, never a stale number. Pin it to the constant so it can't drift again.
+    doc = server.query_cube.__doc__ or server.query_cube.fn.__doc__
+    assert str(server._HARD_MAX_ROWS) in doc          # states the true cap (2500)
+    assert "5000" not in doc                           # never the rejected over-wall value
+
+
 def test_logger_uses_stderr_not_stdout():
     # R18: never log to stdout (it is the JSON-RPC channel)
     handlers = server.log.handlers

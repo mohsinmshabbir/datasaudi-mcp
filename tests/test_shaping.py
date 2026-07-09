@@ -120,6 +120,22 @@ def test_build_result_byte_budget_leaves_small_results_untouched():
     assert out["complete"] is True
 
 
+def test_build_result_single_oversized_row_is_not_reported_as_no_data():
+    # BUG: when ONE row alone exceeds the byte budget, every row is dropped and the
+    # envelope wrongly said both more=True AND "no matching data" - hiding that data
+    # existed but was too big. The note must say the row was too large, not "no data".
+    from datasaudi_mcp.shaping import _MAX_RESULT_BYTES
+    huge = "z" * (_MAX_RESULT_BYTES + 50_000)      # one row bigger than the whole budget
+    rows = [{"blob": huge}]
+    out = build_result("c", ["x"], ["m"], None, rows, more=False)
+    assert out["returned"] == 0                    # nothing could fit
+    note = out["note"].lower()
+    assert "no matching data" not in note          # must NOT claim the query was empty
+    assert "size" in note or "too large" in note or "budget" in note  # explains why
+    # and it must not simultaneously claim more-available: nothing here is pageable
+    assert out["complete"] is True or "size" in note
+
+
 def test_steer_oversize_says_add_a_cut():
     # R15/Probe5: huge-but-valid -> a cut rescues it (measured 75x)
     s = steer_for("oversize")

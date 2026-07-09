@@ -4,6 +4,20 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- `query_cube` docstring stated the row cap as 5000 when the real ceiling is 2500,
+  which could make a model mis-plan paging. Pinned to the constant with a test so it
+  can't drift again.
+- `list_cubes` silently swallowed a typo'd `scope` or `locale`, returning an empty
+  result the envelope then reported as "complete" — a confident lie. It now fails
+  loud and names the valid options, matching the fail-loud philosophy everywhere else.
+- When a single row exceeded the result size budget, the envelope simultaneously
+  claimed "more available" and "no matching data," hiding that data existed but was
+  too large. It now says the row was too big and steers to narrowing the query.
+
 ## [0.1.0] — 2026-07-08
 
 First public release.

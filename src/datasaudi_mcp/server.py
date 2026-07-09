@@ -37,6 +37,8 @@ except Exception:  # pragma: no cover - not all streams support reconfigure
 mcp = FastMCP("datasaudi-mcp")
 
 _CATALOG: Catalog | None = None  # test-injectable; None => fetch live
+_VALID_SCOPES = ("catalog", "measures", "levels", "members")  # 'members' aliases 'levels'
+_VALID_LOCALES = ("en", "ar")    # the API only speaks these two
 _EMPTY_QUERY_CAP = 25            # R10: empty-query preview cap (don't flood)
 _SEARCH_CAP = 250                # R21: per-page cap for a real search; big enough to
 #                                  return any realistic match set whole (largest is ~163),
@@ -94,6 +96,16 @@ async def list_cubes(query: str = "", scope: str = "catalog", locale: str = "en"
     catalog annotations (topic/subtopic/source); cube names/captions themselves are English only.
     An empty query returns a labeled preview (first 25 of 277). A space-separated query that
     finds nothing is retried once with spaces replaced by underscores."""
+    # R13 fail loud: a typo'd scope/locale used to fall through to an empty result the
+    # envelope then called 'complete' - a confident lie. Name the valid options instead.
+    if scope not in _VALID_SCOPES:
+        raise DataSaudiError(
+            f"unknown scope {scope!r}; valid scopes: catalog, measures, levels"
+        )
+    if locale not in _VALID_LOCALES:
+        raise DataSaudiError(
+            f"unknown locale {locale!r}; valid locales: en, ar"
+        )
     cat = await get_catalog()
     catalog_size = len(cat.names())
     if not query.strip():
@@ -152,8 +164,8 @@ async def query_cube(
     Validates level/measure names AND cut level names locally and fails loud with the
     valid options.
 
-    limit: max rows per call (default 100), HARD-CAPPED at 5000. A larger value is
-    silently reduced to 5000 - the tool will NOT return an unbounded result, because a
+    limit: max rows per call (default 100), HARD-CAPPED at 2500. A larger value is
+    silently reduced to 2500 - the tool will NOT return an unbounded result, because a
     single result over ~1MB is rejected outright by the client (no partial data comes
     back). THERE IS NO 'get everything in one call'. To get more than one page, do NOT
     raise limit: page with `offset` (the note gives you the next offset; repeat until
