@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.mohsinmshabbir/datasaudi-mcp",
+  "description": "Query Saudi economic & social statistics (GASTAT / DataSaudi) — GDP, inflation, trade, population, real-estate price index — in English or Arabic. Keyless, no database.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/mohsinmshabbir/datasaudi-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "datasaudi-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

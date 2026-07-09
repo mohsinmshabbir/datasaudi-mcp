@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.env
+
+# Test / tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# Data cache — the cubes catalog is regenerable from the live API.
+# The committed fixture under tests/fixtures/ is the exception (tracked deliberately).
+data/*.json
+
+# PRIVATE — internal process docs & scratch. Never publish (see PUBLICATION.md).
+docs/superpowers/
+.superpowers/
+PUBLICATION.md
