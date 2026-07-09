@@ -8,6 +8,7 @@
 *in plain English **or Arabic**. No API key. No database.*
 
 [![PyPI](https://img.shields.io/pypi/v/datasaudi-mcp.svg)](https://pypi.org/project/datasaudi-mcp/)
+[![MCP Registry](https://img.shields.io/badge/MCP_Registry-listed-6E56CF.svg)](https://registry.modelcontextprotocol.io/v0/servers?search=datasaudi)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/)
 [![CI](https://github.com/mohsinmshabbir/datasaudi-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/mohsinmshabbir/datasaudi-mcp/actions)
