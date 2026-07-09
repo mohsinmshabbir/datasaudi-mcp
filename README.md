@@ -28,7 +28,7 @@ answered right inside your AI client. You never name a dataset; the model finds 
 Here it is in Claude Desktop — one plain‑English question, and the model finds the dataset,
 pulls Riyadh's real‑estate price index against the national trend, and charts it:
 
-https://github.com/user-attachments/assets/99c0433c-91fb-4815-94a5-349c589ad4ec
+![datasaudi-mcp answering a question in Claude Desktop](https://raw.githubusercontent.com/mohsinmshabbir/datasaudi-mcp/main/docs/demo.gif)
 
 ---
 
